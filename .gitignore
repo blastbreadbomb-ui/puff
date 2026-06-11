@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+dist/
+dist-electron/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Backend data (contains encrypted user data)
+backend/data/
+
+# Environment (contains API keys)
+backend/.env
+.env
+
+# Build output
+release/
+dist-web/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
