@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ai-sister
+    runtime: docker
+    repo: https://github.com/YOUR_USERNAME/ai-sister
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: DEBUG
+        value: "false"

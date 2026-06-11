@@ -29,6 +29,6 @@ COPY --from=frontend-build /app/dist-web ./dist-web
 RUN mkdir -p /app/backend/data
 
 WORKDIR /app/backend
-EXPOSE 8899
+EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8899"]
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8899}
