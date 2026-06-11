@@ -11,9 +11,11 @@ const getApiUrl = (): string => {
   if (typeof window !== 'undefined' && window.electronAPI) {
     return 'http://127.0.0.1:8899'
   }
-  // Web mode (dev + production): use relative paths
-  //   - Dev: Vite proxy forwards /api/* → localhost:8899
-  //   - Production: same-origin, FastAPI serves both frontend and API
+  // Production: use build-time configured backend URL (e.g. Netlify → Render)
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL
+  }
+  // Dev: use relative paths — Vite proxy forwards /api/* → localhost:8899
   return ''
 }
 

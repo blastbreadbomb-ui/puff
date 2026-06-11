@@ -34,7 +34,8 @@ class Settings(BaseSettings):
     max_history_messages: int = 20
     max_context_tokens: int = 4000
 
-    # Risk detection
+    # CORS
+    cors_origins: str = os.getenv("CORS_ORIGINS", "")
     risk_detection_enabled: bool = True
     high_risk_auto_intervene: bool = True
 

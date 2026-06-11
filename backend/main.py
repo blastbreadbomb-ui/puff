@@ -36,12 +36,13 @@ app = FastAPI(
     description="24小时在线、懂心理学、无评判的温柔树洞与情绪疗愈师",
 )
 
-# CORS middleware — only needed in development (Electron / separate frontend dev server)
-# In production the frontend is served from the same origin, so CORS is unnecessary
-if settings.debug:
+# CORS middleware — enabled when frontend is on a different origin
+# (Netlify → Render) or in debug mode. Disabled in single-service production.
+_cors_origins = settings.cors_origins
+if settings.debug or _cors_origins:
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=_cors_origins.split(",") if _cors_origins else ["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
