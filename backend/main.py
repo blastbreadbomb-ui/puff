@@ -1,8 +1,5 @@
-"""
+﻿"""
 AI 知心大姐姐 — FastAPI 后端入口
-
-Starts the FastAPI server with all API routes.
-Run with: uvicorn main:app --host 127.0.0.1 --port 8899
 """
 
 import sys
@@ -28,6 +25,7 @@ from api.health import router as health_router
 from api.chat import router as chat_router
 from api.emotion import router as emotion_router
 from api.memory import router as memory_router
+from api.voice import router as voice_router
 
 # Create FastAPI app
 app = FastAPI(
@@ -36,8 +34,7 @@ app = FastAPI(
     description="24小时在线、懂心理学、无评判的温柔树洞与情绪疗愈师",
 )
 
-# CORS middleware — enabled when frontend is on a different origin
-# (Netlify → Render) or in debug mode. Disabled in single-service production.
+# CORS middleware
 _cors_origins = settings.cors_origins
 if settings.debug or _cors_origins:
     app.add_middleware(
@@ -53,6 +50,7 @@ app.include_router(health_router)
 app.include_router(chat_router)
 app.include_router(emotion_router)
 app.include_router(memory_router)
+app.include_router(voice_router)
 
 
 @app.on_event("startup")
@@ -60,16 +58,14 @@ async def startup_event():
     """Initialize database on startup."""
     init_db()
     print(f"🌸 {settings.app_name} v{settings.app_version} started")
-    print(f"📂 Database: {settings.db_path}")
+    print(f"📂 {settings.db_path}")
 
 
-# Serve the built frontend in production (must come after API routes)
+# Serve the built frontend in production
 STATIC_DIR = Path(__file__).parent.parent / "dist-web"
 if STATIC_DIR.exists() and STATIC_DIR.is_dir():
-    # Mount static files — this handles "/" by serving index.html
     app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
 else:
-    # No built frontend: expose a simple root endpoint for health/status
     @app.get("/")
     async def root():
         """Root endpoint (API-only mode)."""

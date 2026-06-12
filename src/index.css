@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -15,16 +15,25 @@ html, body, #root {
 }
 
 body {
-  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   background-color: #faf5f7;
   color: #3d2c3a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Subtle polka dot background pattern for chat area */
+.bg-chat-pattern {
+  background-color: #faf5f7;
+  background-image:
+    radial-gradient(circle, rgba(232, 160, 180, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -32,12 +41,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e0d0d8;
+  background: #e8d0da;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c0a8b4;
+  background: #d4a8b8;
 }
 
 /* Typing indicator animation */
@@ -47,7 +56,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #c0a8b4;
+  background-color: #d4a8b8;
   margin: 0 2px;
 }
 
@@ -60,12 +69,98 @@ body {
   40% { transform: scale(1); }
 }
 
-/* Message animation */
+/* Message enter animation */
 .message-enter {
-  animation: slideUp 0.3s ease-out;
+  animation: messageSlideIn 0.35s ease-out;
 }
 
-@keyframes slideUp {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
+@keyframes messageSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Streaming cursor */
+.streaming-cursor::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  background-color: #ec4899;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  border-radius: 1px;
+  animation: cursorBlink 0.8s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Pulse soft animation */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2.5s ease-in-out infinite;
+}
+
+/* Toast animation */
+@keyframes toastIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.95);
+  }
+}
+
+.toast-enter {
+  animation: toastIn 0.3s ease-out forwards;
+}
+
+.toast-exit {
+  animation: toastOut 0.3s ease-in forwards;
+}
+
+/* Selection style */
+::selection {
+  background-color: rgba(236, 72, 153, 0.15);
+  color: #be185d;
+}
+
+
+/* Voice call wave animation */
+@keyframes wave {
+  0%, 100% { height: 12px; }
+  50% { height: 32px; }
+}
+.animate-wave {
+  animation: wave 1s ease-in-out infinite;
+}
+
+/* Animation delay utilities */
+.animation-delay-500 {
+  animation-delay: 0.5s;
 }

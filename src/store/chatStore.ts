@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Message, Conversation, EmotionInfo, RiskInfo } from '../types'
+import type { Message, Conversation, EmotionInfo, RiskInfo, VoiceCallStatus } from '../types'
 
 interface ChatState {
   // API
@@ -32,6 +32,11 @@ interface ChatState {
   setCurrentRisk: (risk: RiskInfo | null) => void
   showRiskAlert: boolean
   setShowRiskAlert: (show: boolean) => void
+
+  voiceStatus: VoiceCallStatus
+  setVoiceStatus: (status: VoiceCallStatus) => void
+  isVoiceSupported: boolean
+  setVoiceSupported: (supported: boolean) => void
 }
 
 export const useChatStore = create<ChatState>((set) => ({
@@ -73,4 +78,9 @@ export const useChatStore = create<ChatState>((set) => ({
   setCurrentRisk: (risk) => set({ currentRisk: risk }),
   showRiskAlert: false,
   setShowRiskAlert: (show) => set({ showRiskAlert: show }),
+
+  voiceStatus: 'idle',
+  setVoiceStatus: (status) => set({ voiceStatus: status }),
+  isVoiceSupported: false,
+  setVoiceSupported: (supported) => set({ isVoiceSupported: supported }),
 }))

@@ -1,7 +1,8 @@
 {
+  "type": "module",
   "name": "ai-sister",
   "version": "1.0.0",
-  "description": "AI 知心大姐姐 — 情绪陪伴机器人",
+  "description": "AI 知心大姐姐 - 情绪陪伴机器人",
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
@@ -9,6 +10,7 @@
     "build:web": "tsc && vite build --config vite.web.config.ts",
     "build": "tsc && vite build && electron-builder",
     "preview": "vite preview",
+    "deploy:web": "npm run build:web && npx netlify deploy --prod --dir=dist-web",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {

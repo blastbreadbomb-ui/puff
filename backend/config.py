@@ -1,4 +1,4 @@
-"""Application configuration management."""
+﻿"""Application configuration management."""
 
 import os
 from pathlib import Path
@@ -38,6 +38,11 @@ class Settings(BaseSettings):
     cors_origins: str = os.getenv("CORS_ORIGINS", "")
     risk_detection_enabled: bool = True
     high_risk_auto_intervene: bool = True
+
+    # TTS (Edge TTS)
+    tts_voice: str = "zh-CN-XiaoxiaoNeural"
+    tts_rate: str = "-5%"
+    tts_pitch: str = "-3Hz"
 
     class Config:
         env_file = ".env"

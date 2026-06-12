@@ -107,3 +107,22 @@ export interface SSEDoneEvent {
   riskLevel: string
   fullResponse: string
 }
+
+// ========== Voice Call Types ==========
+export type VoiceCallStatus = 'idle' | 'listening' | 'thinking' | 'speaking'
+
+export interface VoiceCallState {
+  status: VoiceCallStatus
+  isSupported: boolean
+  errorMessage: string | null
+}
+
+// WebSocket voice message types
+export interface VoiceWSMessage {
+  type: 'emotion' | 'risk' | 'text' | 'audio' | 'done' | 'interrupted'
+  data: any
+}
+
+export interface VoiceAudioChunk {
+  audio: string  // base64 encoded MP3
+}

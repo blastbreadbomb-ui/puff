@@ -1,12 +1,18 @@
-services:
+﻿services:
   - type: web
     name: ai-sister
     runtime: docker
     repo: https://github.com/blastbreadbomb-ui/puff
     plan: free
+    region: singapore
     healthCheckPath: /api/health
+    autoDeploy: true
     envVars:
       - key: DEEPSEEK_API_KEY
         sync: false
       - key: DEBUG
         value: "false"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: APP_NAME
+        value: "AI知心大姐姐 - 晓语"
